@@ -2,16 +2,16 @@
 #include <cstddef>
 template<class T>
 class Node{
-    private:
+    public:
         T data;
         Node<T> *next;
         Node<T> *prev;
-    public:
+    
        Node(void);
        Node(T &data);
-       void set_data(T &new_data);
-       void set_next(Node<T> *next_node);
-       void set_prev(Node<T> *prev_node);
+       Node<T>* set_data(T &new_data);
+       Node<T>* set_next(Node<T> *next_node);
+       Node<T>* set_prev(Node<T> *prev_node);
        T get_data(void);
        Node<T> *get_next(void);
        Node<T> *get_prev(void);
@@ -33,9 +33,10 @@ Node<T>::Node(T &new_data)
 }
 
 template<class T>
-void Node<T>::set_data(T &new_data)
+ Node<T>* Node<T>::set_data(T &new_data)
 {
     data = new_data;
+    return this;
 }
 
 template<class T>
@@ -45,15 +46,17 @@ T Node<T>::get_data()
 }
 
 template<class T>
-void Node<T>::set_next(Node<T> *next_node_ptr)
+Node<T>* Node<T>::set_next(Node<T> *next_node_ptr)
 {
    next = next_node_ptr;
+   return this;
 }
 
 template<class T>
-void Node<T>::set_prev(Node<T> *prev_node_ptr)
+Node<T>* Node<T>::set_prev(Node<T> *prev_node_ptr)
 {
    prev = prev_node_ptr;
+   return this;
 }
 
 template<class T>
