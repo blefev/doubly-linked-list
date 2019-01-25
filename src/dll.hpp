@@ -166,14 +166,16 @@ T DLL<T>::getFront(void)
 template<class T>
 T DLL<T>::getBack(void)
 {
-    Node<T> *nodePtr = head;
+	Node<T>* nodePtr = this->head;
 
-    std::cout << "Your List: ";
-	while (nodePtr)
-        nodePtr = nodePtr->get_next();
+	while(nodePtr->get_next())
+		nodePtr = nodePtr->next;
 
-    if (nodePtr) return nodePtr->get_data();
-    return 0;
+    if (nodePtr)
+        return nodePtr->get_data();
+    else
+        return 0;
+
 }
 
 template<class T>
