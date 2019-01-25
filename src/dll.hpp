@@ -52,6 +52,9 @@ public:
 
     // desc: Prints the contents of the list from front to back
 	void print();
+
+    // deletes a node form a pointer
+    bool deleteFromPtr(Node<T>** dblNodePtr);
 };
 
 
@@ -83,7 +86,7 @@ void DLL<T>::prepend(T &data)
 template<class T>
 void DLL<T>::append(T &data)
 {
-    Node<T>** dblNodePtr = &(this->head);
+    Node<T>** dblNodePtr = &(head);
 
     while(*dblNodePtr)
         dblNodePtr = &(*dblNodePtr)->next;
@@ -94,19 +97,37 @@ void DLL<T>::append(T &data)
 template<class T>
 bool DLL<T>::removeFront()
 {
-    return false;
+    if (!head) return false;
+
+	Node<T>* toShift = head->next;
+	delete head;
+	head = toShift;
+
+	return true;
 }
 
 template<class T>
 bool DLL<T>::removeBack()
 {
-    return false;
+	if(!head) return false;
+
+	Node<T>** dblNodePtr = &(head);
+
+	while((*dblNodePtr)->next)
+		dblNodePtr = &(*dblNodePtr)->next;
+
+	return deleteFromPtr(dblNodePtr);
 }
 
 template<class T>
 Node<T> *DLL<T>::search(T target)
 {
-    return NULL;
+    Node<T>* nodePtr = this->head;
+
+	while(nodePtr && nodePtr->get_data() != target)
+		nodePtr = nodePtr->next;
+
+	return nodePtr;
 }
 
 template<class T>
@@ -126,17 +147,43 @@ void DLL<T>::print()
 template<class T>
 bool DLL<T>::remove(T target)
 {
-    return false;
+    Node<T>** dblNodePtr = &(this->head);
+
+    while(*dblNodePtr && (**dblNodePtr).get_data() != target)
+        dblNodePtr = &(*dblNodePtr)->next;
+
+    return deleteFromPtr(dblNodePtr);
 }
 
 template<class T>
 T DLL<T>::getFront(void)
 {
-    return 0;
+    if (!head) return 0;
+
+    return (head->get_data());
 }
 
 template<class T>
 T DLL<T>::getBack(void)
 {
+    Node<T> *nodePtr = head;
+
+    std::cout << "Your List: ";
+	while (nodePtr)
+        nodePtr = nodePtr->get_next();
+
+    if (nodePtr) return nodePtr->get_data();
     return 0;
+}
+
+template<class T>
+bool DLL<T>::deleteFromPtr(Node<T>** dblNodePtr)
+{
+	if(!*dblNodePtr)
+		return false;
+
+	Node<T>* toRemove = *dblNodePtr;
+	*dblNodePtr = toRemove->next;
+	delete toRemove;
+	return true;
 }
