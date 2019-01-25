@@ -89,7 +89,9 @@ void DLL<T>::append(T &data)
     Node<T>** dblNodePtr = &(head);
 
     while(*dblNodePtr)
+    {
         dblNodePtr = &(*dblNodePtr)->next;
+    }
 
     *dblNodePtr = new Node<T>(data);
 }
@@ -97,7 +99,10 @@ void DLL<T>::append(T &data)
 template<class T>
 bool DLL<T>::removeFront()
 {
-    if (!head) return false;
+    if (!head) 
+    {
+        return false;
+    }
 
 	Node<T>* toShift = head->next;
 	delete head;
@@ -109,12 +114,17 @@ bool DLL<T>::removeFront()
 template<class T>
 bool DLL<T>::removeBack()
 {
-	if(!head) return false;
+	if(!head) 
+    {
+        return false;
+    }
 
 	Node<T>** dblNodePtr = &(head);
 
 	while((*dblNodePtr)->next)
+    {
 		dblNodePtr = &(*dblNodePtr)->next;
+    }
 
 	return deleteFromPtr(dblNodePtr);
 }
@@ -125,7 +135,9 @@ Node<T> *DLL<T>::search(T target)
     Node<T>* nodePtr = this->head;
 
 	while(nodePtr && nodePtr->get_data() != target)
+    {
 		nodePtr = nodePtr->next;
+    }
 
 	return nodePtr;
 }
@@ -149,8 +161,10 @@ bool DLL<T>::remove(T target)
 {
     Node<T>** dblNodePtr = &(this->head);
 
-    while(*dblNodePtr && (**dblNodePtr).get_data() != target)
+    while(*dblNodePtr && (**dblNodePtr).get_data() != target) 
+    {
         dblNodePtr = &(*dblNodePtr)->next;
+    }
 
     return deleteFromPtr(dblNodePtr);
 }
@@ -158,7 +172,10 @@ bool DLL<T>::remove(T target)
 template<class T>
 T DLL<T>::getFront(void)
 {
-    if (!head) return 0;
+    if (!head) 
+    {
+        return 0;
+    }
 
     return (head->get_data());
 }
@@ -169,20 +186,27 @@ T DLL<T>::getBack(void)
 	Node<T>* nodePtr = this->head;
 
 	while(nodePtr->get_next())
+    {
 		nodePtr = nodePtr->next;
+    }
 
     if (nodePtr)
+    {
         return nodePtr->get_data();
+    }
     else
+    {
         return 0;
-
+    }
 }
 
 template<class T>
 bool DLL<T>::deleteFromPtr(Node<T>** dblNodePtr)
 {
 	if(!*dblNodePtr)
+    {
 		return false;
+    }
 
 	Node<T>* toRemove = *dblNodePtr;
 	*dblNodePtr = toRemove->next;
